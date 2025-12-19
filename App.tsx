@@ -9,6 +9,7 @@ import { ParticleBackground } from './components/ParticleBackground';
 import { HeroDiagram } from './components/HeroDiagram';
 import { TechIcon } from './components/TechIcons';
 import { CaseStudyView } from './components/CaseStudyView';
+import { Logo } from './components/Logo';
 
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,7 +29,6 @@ const App: React.FC = () => {
     e.preventDefault();
     if (currentView !== 'home') {
       setCurrentView('home');
-      // Delay scroll to allow home view to render
       setTimeout(() => {
         const element = document.getElementById(targetId);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -59,15 +59,12 @@ const App: React.FC = () => {
         {/* Simplified Nav for Case Study */}
         <nav className="fixed w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 py-3">
           <div className="container mx-auto px-6 flex justify-between items-center">
-            <div 
-              className="flex items-center gap-3 cursor-pointer" 
+            <button 
+              className="hover:opacity-80 transition-opacity" 
               onClick={() => setCurrentView('home')}
             >
-              <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-violet-500 rounded-lg flex items-center justify-center text-slate-900">
-                <span className="font-bold font-mono text-lg tracking-tighter">PD</span>
-              </div>
-              <span className="text-xl font-bold tracking-wider text-white">PIPEDATALYTICS</span>
-            </div>
+              <Logo />
+            </button>
             <Button size="sm" onClick={() => window.open(CALENDLY_URL, '_blank')}>Book Technical Discovery</Button>
           </div>
         </nav>
@@ -92,12 +89,9 @@ const App: React.FC = () => {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/90 backdrop-blur-md border-b border-slate-800 py-3' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>
-            <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-violet-500 rounded-lg flex items-center justify-center text-slate-900 shadow-lg shadow-cyan-500/20">
-              <span className="font-bold font-mono text-lg tracking-tighter">PD</span>
-            </div>
-            <span className="text-xl font-bold tracking-wider text-white">PIPEDATALYTICS</span>
-          </div>
+          <button className="hover:opacity-80 transition-opacity" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>
+            <Logo />
+          </button>
 
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
@@ -158,7 +152,7 @@ const App: React.FC = () => {
               
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight glow-text drop-shadow-2xl">
                 Modern Data Infrastructure. <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">Engineered for Scale.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D1FF] to-[#4ADE80]">Engineered for Scale.</span>
               </h1>
               
               <p className="text-lg text-slate-400 mb-10 max-w-xl mx-auto md:mx-0 leading-relaxed">
@@ -281,13 +275,8 @@ const App: React.FC = () => {
           </div>
           <div className="grid md:grid-cols-4 gap-12 border-t border-slate-800 pt-10 mb-10">
             <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-violet-500 rounded flex items-center justify-center text-slate-900">
-                   <span className="font-bold font-mono text-xs tracking-tighter">PD</span>
-                </div>
-                <span className="text-lg font-bold text-white tracking-wider">PIPEDATALYTICS</span>
-              </div>
-              <p className="text-slate-500 text-sm max-w-sm">
+              <Logo className="mb-6" />
+              <p className="text-slate-500 text-sm max-w-sm leading-relaxed">
                 Elite Data Engineering for scale-ups and enterprise. 
                 We turn spaghetti code into orchestrated, observable, and scalable data platforms.
               </p>
@@ -295,14 +284,14 @@ const App: React.FC = () => {
             <div>
               <h4 className="text-white font-bold mb-4">Connect</h4>
               <div className="flex flex-col gap-2">
-                <a href="#" className="text-slate-400 hover:text-cyan-400 text-sm flex items-center gap-2"><Linkedin size={16} /> LinkedIn</a>
-                <a href="#" className="text-slate-400 hover:text-cyan-400 text-sm flex items-center gap-2"><Github size={16} /> GitHub</a>
+                <a href="#" className="text-slate-400 hover:text-cyan-400 text-sm flex items-center gap-2 transition-colors"><Linkedin size={16} /> LinkedIn</a>
+                <a href="#" className="text-slate-400 hover:text-cyan-400 text-sm flex items-center gap-2 transition-colors"><Github size={16} /> GitHub</a>
               </div>
             </div>
              <div>
               <h4 className="text-white font-bold mb-4">Locations</h4>
-              <p className="text-slate-400 text-sm">San Francisco, CA</p>
-              <p className="text-slate-400 text-sm">Austin, TX</p>
+              <p className="text-slate-400 text-sm mb-1">San Francisco, CA</p>
+              <p className="text-slate-400 text-sm mb-1">Austin, TX</p>
               <p className="text-slate-400 text-sm">Remote Worldwide</p>
             </div>
           </div>
