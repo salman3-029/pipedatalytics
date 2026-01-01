@@ -1,9 +1,9 @@
-
 import { LucideIcon } from "lucide-react";
 
 export interface Project {
   id: string;
   title: string;
+  image?: string;
   industry?: string;
   stack: string[];
   result: string;
@@ -15,6 +15,13 @@ export interface Project {
 
 export interface Service {
   title: string;
+  description: string;
+  icon: LucideIcon;
+}
+
+export interface Agent {
+  title: string;
+  tag: string;
   description: string;
   icon: LucideIcon;
 }
