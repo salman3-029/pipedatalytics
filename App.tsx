@@ -137,7 +137,7 @@ const App: React.FC = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                 </span>
-                PIPEDATALYTICS x MEKA AI // DEPLOYED
+                PIPEDATALYTICS
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight glow-text drop-shadow-2xl">
                 The Backbone of Intelligence: <br />
