@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, CheckCircle2, ChevronRight, Cpu } from 'lucide-react';
+import { Menu, X, ArrowRight, CheckCircle2, ChevronRight } from 'lucide-react';
 import { Button } from './components/Button.tsx';
 import { SectionHeading } from './components/SectionHeading.tsx';
 import { NAV_LINKS, PROJECTS, SERVICES, TECH_STACK, AGENTS } from './constants.tsx';
-import { Project } from './types.ts';
+import { Project, Agent } from './types.ts';
 import { ParticleBackground } from './components/ParticleBackground.tsx';
 import { HeroDiagram } from './components/HeroDiagram.tsx';
 import { TechIcon } from './components/TechIcons.tsx';
 import { CaseStudyView } from './components/CaseStudyView.tsx';
+import { AgentDetailView } from './components/AgentDetailView.tsx';
 import { Logo } from './components/Logo.tsx';
 
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'case-study'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'case-study' | 'agent'>('home');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,7 +52,32 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleOpenAgent = (agent: Agent) => {
+    setSelectedAgent(agent);
+    setCurrentView('agent');
+    window.scrollTo(0, 0);
+  };
+
   const CALENDLY_URL = "https://calendly.com/YOUR_USERNAME";
+
+  if (currentView === 'agent' && selectedAgent) {
+    return (
+      <>
+        <nav className="fixed w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 py-3">
+          <div className="container mx-auto px-6 flex justify-between items-center">
+            <button className="hover:opacity-80 transition-opacity" onClick={() => { setCurrentView('home'); setSelectedAgent(null); }}>
+              <Logo />
+            </button>
+            <Button size="sm" onClick={() => window.open(CALENDLY_URL, '_blank')}>Book Technical Discovery</Button>
+          </div>
+        </nav>
+        <AgentDetailView agent={selectedAgent} onBack={() => { setCurrentView('home'); setSelectedAgent(null); }} />
+        <footer className="bg-slate-950 py-10 border-t border-slate-900 text-center">
+          <p className="text-slate-600 text-xs tracking-widest uppercase">&copy; {new Date().getFullYear()} PIPEDATALYTICS // SYSTEMS_STABLE</p>
+        </footer>
+      </>
+    );
+  }
 
   if (currentView === 'case-study' && selectedProject) {
     return (
@@ -157,9 +184,12 @@ const App: React.FC = () => {
       <section id="services" className="py-24 relative z-10">
         <div className="container mx-auto px-6">
           <SectionHeading title="System Capabilities" subtitle="Engineering excellence at every layer of the data lifecycle." />
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {SERVICES.map((service, idx) => (
-              <div key={idx} className="glass-card p-8 rounded-xl border-t-2 border-transparent hover:border-cyan-500/50 transition-all duration-300 group">
+              <div
+                key={idx}
+                className="glass-card p-8 rounded-xl border-t-2 border-transparent hover:border-cyan-500/50 transition-all duration-300 group w-full flex-1 basis-[300px] md:basis-[320px] max-w-[420px]"
+              >
                 <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform duration-300">
                   <service.icon size={24} />
                 </div>
@@ -182,7 +212,8 @@ const App: React.FC = () => {
             {AGENTS.map((agent, idx) => (
               <div 
                 key={idx} 
-                className="glass-card p-6 rounded-xl border border-transparent hover:border-violet-500/40 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] transition-all duration-300 group flex flex-col"
+                onClick={() => handleOpenAgent(agent)}
+                className="glass-card p-6 rounded-xl border border-transparent hover:border-violet-500/40 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] transition-all duration-300 group flex flex-col cursor-pointer"
               >
                 <div className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center text-white mb-6 group-hover:bg-violet-900/30 group-hover:text-violet-400 transition-colors">
                   <agent.icon size={20} />
@@ -194,6 +225,11 @@ const App: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-bold text-white mb-3 group-hover:text-violet-200">{agent.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{agent.description}</p>
+                <div className="mt-6">
+                  <Button size="sm" variant="secondary" onClick={(e) => { e.stopPropagation(); handleOpenAgent(agent); }}>
+                    Learn more
+                  </Button>
+                </div>
               </div>
             ))}
           </div>

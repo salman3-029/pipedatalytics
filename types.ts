@@ -20,10 +20,25 @@ export interface Service {
 }
 
 export interface Agent {
+  id: string;
   title: string;
   tag: string;
   description: string;
   icon: LucideIcon;
+  subtitle?: string;
+  longDescription?: string;
+  capabilities?: string[];
+  outcomes?: string[];
+  stack?: string[];
+  safeguards?: string[];
+  image?: string;
+  businessBenefits?: string[];
+  impacts?: { label: string; value: string; description?: string }[];
+  queryExample?: {
+    question: string;
+    sql: string;
+    latency?: string;
+  };
 }
 
 export interface TechItem {

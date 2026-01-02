@@ -4,6 +4,7 @@ import {
   SiDbt,
   SiKubernetes,
   SiAmazonwebservices,
+  SiGooglecloud,
   SiSnowflake,
   SiPython,
   SiDocker
@@ -24,14 +25,26 @@ const MsFabricIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+const VertexAiIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="4" className={className} role="img" aria-label="Vertex AI">
+    <path d="M32 6 8 18v28l24 12 24-12V18L32 6Z" strokeLinejoin="round" />
+    <path d="M20 32a12 12 0 0 1 24 0" />
+    <circle cx="25" cy="30" r="3" fill="currentColor" stroke="none" />
+    <circle cx="39" cy="30" r="3" fill="currentColor" stroke="none" />
+    <path d="M24 38c2.5 3 13.5 3 16 0" strokeLinecap="round" />
+  </svg>
+);
+
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   airflow: SiApacheairflow,
   dbt: SiDbt,
   kubernetes: SiKubernetes,
   aws: SiAmazonwebservices,
+  gcp: SiGooglecloud,
   azure: AzureIcon,
   snowflake: SiSnowflake,
   'ms fabric': MsFabricIcon,
+  'vertex ai': VertexAiIcon,
   python: SiPython,
   docker: SiDocker
 };
